@@ -5,7 +5,7 @@ const url_1 = require("url");
 const config_1 = require("./config");
 function embedVideoHTML(type, id, options) {
     try {
-        const videoId = readVideoId(type, id);
+        const videoId = readVideoId(type, id, options);
         const videoService = (0, config_1.getVideoService)(videoId.service, options);
         const url = createUrl(videoId.id, videoService, options);
         let iframe = createIframe(url, id, videoService, options);
@@ -16,7 +16,7 @@ function embedVideoHTML(type, id, options) {
     }
 }
 exports.embedVideoHTML = embedVideoHTML;
-function readVideoId(type, id) {
+function readVideoId(type, id, options) {
     let videoId;
     for (let processor of config_1.videoIdProcessors) {
         try {
@@ -30,7 +30,7 @@ function readVideoId(type, id) {
             return videoId;
         }
     }
-    if (type === "video") {
+    if (!(options === null || options === void 0 ? void 0 : options.allowGenericUrl) && type === "video") {
         throw new TypeError("Id could not be processed");
     }
     return {

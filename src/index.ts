@@ -22,7 +22,7 @@ const addVideoIframe = ({ markdownAST }: any, options: IEmbedVideoOptions) => {
   options = overrideDefaultOptions(options);
 
   const match = (node: Node, v: string): void => {
-    const keywords = [...knownPlatforms(), "video"].join("|");
+    const keywords = knownPlatforms().join("|");
     const re = new RegExp(`\(${keywords}\):\(\.\*\)`, "i");
 
     const processValue = v.match(re);

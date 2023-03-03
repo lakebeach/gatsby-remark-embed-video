@@ -9,7 +9,7 @@ export function embedVideoHTML(
   options: IEmbedVideoOptions
 ): string {
   try {
-    const videoId: IVideoId = readVideoId(type, id);
+    const videoId: IVideoId = readVideoId(type, id, options);
     const videoService = getVideoService(videoId.service, options);
     const url = createUrl(videoId.id, videoService, options);
     let iframe = createIframe(url, id, videoService, options);
@@ -19,7 +19,7 @@ export function embedVideoHTML(
   }
 }
 
-export function readVideoId(type: string, id: string): IVideoId {
+export function readVideoId(type: string, id: string, options: IEmbedVideoOptions): IVideoId {
   let videoId: IVideoId | {};
   for (let processor of videoIdProcessors) {
     try {
@@ -36,7 +36,7 @@ export function readVideoId(type: string, id: string): IVideoId {
     }
   }
 
-  if (type === "video") {
+  if (!options?.allowGenericUrl && type === "video") {
     throw new TypeError("Id could not be processed");
   }
 

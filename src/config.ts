@@ -16,6 +16,10 @@ export const defaultOptions: IEmbedVideoOptions = {
 
 export const videoServicesConfig: IVideoService[] = [
   {
+    id: "video",
+    embedUrl: (videoId: string) => `${videoId}`,
+  },
+  {
     id: "youtube",
     embedUrl: (videoId: string) => `https://www.youtube.com/embed/${videoId}`,
     urlProcessing: youtubeUrl,

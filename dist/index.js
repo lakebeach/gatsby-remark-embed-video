@@ -17,7 +17,7 @@ const overrideDefaultOptions = (options) => {
 const addVideoIframe = ({ markdownAST }, options) => {
     options = overrideDefaultOptions(options);
     const match = (node, v) => {
-        const keywords = [...(0, config_1.knownPlatforms)(), "video"].join("|");
+        const keywords = (0, config_1.knownPlatforms)().join("|");
         const re = new RegExp(`\(${keywords}\):\(\.\*\)`, "i");
         const processValue = v.match(re);
         if (processValue) {
